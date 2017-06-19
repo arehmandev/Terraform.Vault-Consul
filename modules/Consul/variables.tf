@@ -50,3 +50,8 @@ variable "consul_join_tag_key" {
 variable "consul_join_tag_value" {
   description = "The value of the tag to auto-join on EC2."
 }
+
+variable "ownerid" {}
+variable "virtualization_type" {}
+variable "ami_name" {}
+variable "channel" {}

@@ -23,3 +23,11 @@ consul_join_tag_key = "consul_join"
 consul_join_tag_value = "training"
 
 public_key_path = "~/.ssh/id_rsa.pub"
+
+ownerid = "099720109477"
+
+virtualization_type = "hvm"
+
+ami_name = "ubuntu/images/hvm/ubuntu-trusty-14.04"
+
+channel = "amd64-server"

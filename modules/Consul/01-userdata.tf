@@ -1,18 +1,28 @@
 # Get the list of official Canonical Ubunt 14.04 AMIs
-data "aws_ami" "ubuntu-1404" {
+data "aws_ami" "consul" {
   most_recent = true
 
   filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm/ubuntu-trusty-14.04-amd64-server-*"]
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
   }
 
   filter {
     name   = "virtualization-type"
-    values = ["hvm"]
+    values = ["${var.virtualization_type}"]
   }
 
-  owners = ["099720109477"] # Canonical
+  filter {
+    name   = "name"
+    values = ["${var.ami_name}-${var.channel}-*"]
+  }
+
+  owners = ["${var.ownerid}"]
 }
 
 # Create the user-data for the Consul server

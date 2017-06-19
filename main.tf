@@ -41,4 +41,8 @@ module "Consul" {
   key_name                = "${aws_key_pair.consul.id}"
   clients                 = "${var.clients}"
   servers                 = "${var.servers}"
+  ownerid                 = "${var.ownerid}"
+  virtualization_type     = "${var.virtualization_type}"
+  ami_name                = "${var.ami_name}"
+  channel                 = "${var.channel}"
 }

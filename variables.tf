@@ -48,3 +48,8 @@ variable "public_key_path" {
 variable "sg_cidr" {
   description = "The CIDR to lockdown access to Security group ports to"
 }
+
+variable "ownerid" {}
+variable "virtualization_type" {}
+variable "ami_name" {}
+variable "channel" {}
