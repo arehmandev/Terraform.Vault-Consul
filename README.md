@@ -5,7 +5,7 @@ Consul 0.7.5 introduced new functionality which allows it to discover other agen
 
 The [latest documentation for Consul](https://www.consul.io/docs/agent/options.html) shows new options we can specify in the Consul configuration file or startup parameters.
 
-- `-retry-join-ec2-tag-key` - The Amazon EC2 instance tag key to filter on. When used with `-retry-join-ec2-tag-value`, Consul will attempt to join EC2 instances with the given tag key and value on startup. 
+- `-retry-join-ec2-tag-key` - The Amazon EC2 instance tag key to filter on. When used with `-retry-join-ec2-tag-value`, Consul will attempt to join EC2 instances with the given tag key and value on startup.
 - `-retry-join-ec2-tag-value` - The Amazon EC2 instance tag value to filter on.
 - `-retry-join-ec2-region` - (Optional) The Amazon EC2 region to use. If not specified, Consul will use the local instance's EC2 metadata endpoint to discover the region.
 
@@ -17,7 +17,7 @@ The new feature requires permission to read the AWS instance state, and there ar
 - ECS task role metadata (container-specific)
 - EC2 instance role metadata
 
-![Flow](images/flow.jpg)
+![Flow](modules/Consul/images/flow.jpg)
 
 The method we are using in this example is the EC2 role metadata.  By assigning the `ec2:DescribeInstances` permission to the instances IAM role, we can give Consul this permission without leaking any other control over your AWS account.
 
@@ -38,11 +38,9 @@ The method we are using in this example is the EC2 role metadata.  By assigning 
 To start and bootstrap the cluster modify the file terraform.tfvars to add your AWS credentials and default region and then run `terraform plan`, `terraform apply` to create the cluster.
 
 ```
-aws_region = "eu-west-1"
+aws_region = "us-east-2"
 
-aws_access_key = "AWS_ACCESS_KEY"
-
-aws_secret_key = "AWS_SECRET"
+aws_profile = "default"
 ```
 
 Once this is all up and running, you will see some output from Terraform showing the IP addresses of the created agents and servers.
@@ -62,7 +60,7 @@ servers = [
 
 ```
 
-After provisioning, it is possible to login to one of the client nodes via SSH using the IP address output from Terraform. 
+After provisioning, it is possible to login to one of the client nodes via SSH using the IP address output from Terraform.
 
 ```bash
 $ ssh ubuntu@34.251.206.78
@@ -73,18 +71,18 @@ Running the `consul members` command will show all members of the cluster and th
 ```bash
 $ consul members
 Node                  Address          Status  Type    Build  Protocol  DC
-consul-blog-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
-consul-blog-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
-consul-blog-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
-consul-blog-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
+consul-demo-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
+consul-demo-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
+consul-demo-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
+consul-demo-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
 ```
 
 ## Scale up
 The cluster automatically bootstrapped with no human intervention, to simulate a failure scenario or scaling of the cluster again modify the `terraform.tfvars` file, increase the number of instances to 5 and then re-run `terraform plan` and terraform apply`.
 
 ```bash
-$ terraform plan 
+$ terraform plan
 Plan: 2 to add, 0 to change, 0 to destroy.
 ...
 ```
@@ -119,13 +117,13 @@ Run `consul members` again after the new servers have finished provisioning. It 
 
 ```bash
 Node                  Address          Status  Type    Build  Protocol  DC
-consul-blog-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
-consul-blog-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
-consul-blog-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
-consul-blog-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-3  10.1.2.44:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-4  10.1.1.75:8301   alive   server  0.7.5  2         dc1
+consul-demo-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
+consul-demo-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
+consul-demo-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
+consul-demo-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-3  10.1.2.44:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-4  10.1.1.75:8301   alive   server  0.7.5  2         dc1
 ```
 
 ## Scale down
@@ -133,13 +131,13 @@ The same applies when scaling down - there is no need to manually remove nodes, 
 
 ```text
 Node                  Address          Status  Type    Build  Protocol  DC
-consul-blog-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
-consul-blog-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
-consul-blog-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
-consul-blog-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
-consul-blog-server-3  10.1.2.44:8301   failed  server  0.7.5  2         dc1
-consul-blog-server-4  10.1.1.75:8301   failed  server  0.7.5  2         dc1
+consul-demo-client-0  10.1.1.189:8301  alive   client  0.7.5  2         dc1
+consul-demo-client-1  10.1.2.187:8301  alive   client  0.7.5  2         dc1
+consul-demo-server-0  10.1.1.241:8301  alive   server  0.7.5  2         dc1
+consul-demo-server-1  10.1.2.24:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-2  10.1.1.26:8301   alive   server  0.7.5  2         dc1
+consul-demo-server-3  10.1.2.44:8301   failed  server  0.7.5  2         dc1
+consul-demo-server-4  10.1.1.75:8301   failed  server  0.7.5  2         dc1
 ```
 
 ## Cleanup
@@ -149,4 +147,4 @@ Do not forget to clean up after the example.  Running `terraform destroy` will r
 These examples use new features of many of the tools. At the time of writing, the following versions were used:
 
 - Terraform v0.9.0
-- Consul v0.7.5 
+- Consul v0.8.4
