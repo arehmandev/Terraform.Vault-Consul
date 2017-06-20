@@ -11,7 +11,14 @@ To setup:
 Wait a min and browse to the loadbalancer URLs to see the Consul UI
 ```
 
-The vault server has been started, you just need to run vault init and vault unseal. You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul.
+The vault server has been started, you just need to SSH into the vault server:
+```
+export VAULT_ADDR=http://localhost:8200
+vault init
+vault unseal, and enter the 3 tokens
+vault auth, and enter the root token
+You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul UI.
+```
 
 # Consul Auto-Join Example
 This repository demonstrates using Consul auto-join to create and update a Consul cluster on AWS.
