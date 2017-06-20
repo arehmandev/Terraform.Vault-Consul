@@ -13,3 +13,7 @@ output "servers" {
 output "clients" {
   value = ["${module.Consul.clients}"]
 }
+
+output "vault_server" {
+  value = "${module.Vault.vault_ip}"
+}
