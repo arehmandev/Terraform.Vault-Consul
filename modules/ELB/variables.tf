@@ -14,6 +14,10 @@ variable "security_groups" {
   type = "list"
 }
 
+variable "servers" {}
+
+variable "clients" {}
+
 variable "servers_instance_ids" {
   type = "list"
 }

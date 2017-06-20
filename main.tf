@@ -53,4 +53,6 @@ module "ELB" {
   security_groups      = ["${module.SecurityGroups.consul_securitygroup_id}"]
   servers_instance_ids = ["${module.Consul.servers_ids}"]
   clients_instance_ids = ["${module.Consul.clients_ids}"]
+  servers              = "${var.servers}"
+  clients              = "${var.clients}"
 }
