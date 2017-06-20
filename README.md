@@ -58,6 +58,8 @@ servers = [
     34.253.133.165
 ]
 
+Go to any of these IPs on port 8500 to see the Consul UI
+
 ```
 
 After provisioning, it is possible to login to one of the client nodes via SSH using the IP address output from Terraform.
