@@ -9,7 +9,7 @@ PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
 echo "Downloading vault..."
 wget https://releases.hashicorp.com/vault/${vault_version}/vault_${vault_version}_linux_amd64.zip -O /tmp/vault.zip
-unzip /tmp/vault.zip
+unzip /tmp/vault.zip -d /tmp/
 chmod +x /tmp/vault
 mv /tmp/vault /usr/local/bin/
 
