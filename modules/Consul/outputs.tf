@@ -11,5 +11,5 @@ output "clients" {
 }
 
 output "clients_ids" {
-  value = ["${aws_instance.server.*.id}"]
+  value = ["${aws_instance.client.*.id}"]
 }

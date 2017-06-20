@@ -1,11 +1,11 @@
 resource "aws_elb_attachment" "servers" {
-  count    = "${var.servers}"
+  count    = "${length(var.servers_instance_ids)}"
   elb      = "${aws_elb.consul.id}"
   instance = "${element(var.servers_instance_ids, count.index)}"
 }
 
 resource "aws_elb_attachment" "clients" {
-  count    = "${var.clients}"
+  count    = "${length(var.clients_instance_ids)}"
   elb      = "${aws_elb.consul.id}"
   instance = "${element(var.clients_instance_ids, count.index)}"
 }
