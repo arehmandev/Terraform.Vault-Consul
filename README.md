@@ -8,7 +8,7 @@ To setup:
 1. Setup AWS-CLI and modify terraform.tfvars if you wish
 2. terraform plan
 3. terraform apply
-Browse to the loadbalancer URLs to see the Consul UI
+Wait a min and browse to the loadbalancer URLs to see the Consul UI
 ```
 
 The vault server has been started, you just need to run vault init and vault unseal. You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul.
