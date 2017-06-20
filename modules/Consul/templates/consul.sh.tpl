@@ -26,6 +26,8 @@ sudo tee /etc/consul.d/config.json > /dev/null <<EOF
   "bind_addr": "$PRIVATE_IP",
   "advertise_addr": "$PRIVATE_IP",
   "advertise_addr_wan": "$PUBLIC_IP",
+  "datacenter": "Abs-lab",
+  "acl_datacenter": "Abs-lab",
   "data_dir": "/mnt/consul",
   "disable_remote_exec": true,
   "disable_update_check": true,

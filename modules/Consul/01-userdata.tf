@@ -36,6 +36,7 @@ data "template_file" "server" {
     config = <<EOF
      "bootstrap_expect": ${var.servers},
      "client_addr": "0.0.0.0",
+     "acl_master_token": "Abs-lab",
      "node_name": "${var.namespace}-server-${count.index}",
      "retry_join_ec2": {
        "tag_key": "${var.consul_join_tag_key}",
