@@ -14,7 +14,7 @@ Wait a min and browse to the loadbalancer URLs to see the Consul UI
 The vault server has been started, you just need to SSH into the vault server:
 ```
 export VAULT_ADDR=http://localhost:8200
-vault init
+vault init - if this step doesn't work, wait a short while
 vault unseal, and enter the 3 tokens
 vault auth, and enter the root token
 You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul UI.
