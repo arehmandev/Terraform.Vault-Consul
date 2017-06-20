@@ -1,6 +1,4 @@
 resource "aws_instance" "vault" {
-  count = "${var.clients}"
-
   ami           = "${data.aws_ami.vault.id}"
   instance_type = "${var.instance_type}"
   key_name      = "${var.key_name}"
@@ -9,10 +7,9 @@ resource "aws_instance" "vault" {
   iam_instance_profile   = "${var.consul_instance_profile}"
   vpc_security_group_ids = ["${var.consul_securitygroup_id}"]
 
-  tags = "${map(
-    "Name", "${var.namespace}-client-${count.index}",
-    var.consul_join_tag_key, var.consul_join_tag_value
-  )}"
+  tags {
+    Name = "${var.vault_instance_name}"
+  }
 
   user_data = "${data.template_file.vault.rendered}"
 }
