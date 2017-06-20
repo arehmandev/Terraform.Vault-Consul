@@ -4,6 +4,7 @@ variable "instance_type" {
 
 variable "consul_subnets" {
   description = "The subnets for the Consul cluster"
+  type = "list"
 }
 
 variable "key_name" {
