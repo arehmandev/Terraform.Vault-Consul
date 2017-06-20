@@ -46,3 +46,11 @@ module "Consul" {
   ami_name                = "${var.ami_name}"
   channel                 = "${var.channel}"
 }
+
+module "ELB" {
+  source               = "./modules/ELB"
+  subnets              = ["${module.VPC.consul_subnets}"]
+  security_groups      = ["${module.SecurityGroups.consul_securitygroup_id}"]
+  servers_instance_ids = ["${module.Consul.servers_ids}"]
+  clients_instance_ids = ["${module.Consul.clients_ids}"]
+}
