@@ -1,3 +1,18 @@
+# TL;DR
+
+Terraform a Consul cluster to be used as storage backend
+
+To setup:
+
+```
+1. Setup AWS-CLI and modify terraform.tfvars if you wish
+2. terraform plan
+3. terraform apply
+Browse to the loadbalancer URLs to see the Consul UI
+```
+
+The vault server has been started, you just need to run vault init and vault unseal. You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul.
+
 # Consul Auto-Join Example
 This repository demonstrates using Consul auto-join to create and update a Consul cluster on AWS.
 

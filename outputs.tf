@@ -1,9 +1,9 @@
-output "consul_servers_loadbalancer" {
-  value = "${module.ELB.servers_elb_dns_name}"
+output "consul_servers_loadbalancer_url" {
+  value = "${module.ELB.servers_elb_dns_name}:8500/ui"
 }
 
-output "consul_clients_loadbalancer" {
-  value = "${module.ELB.clients_elb_dns_name}"
+output "consul_clients_loadbalancer_url" {
+  value = "${module.ELB.clients_elb_dns_name}:8500/ui"
 }
 
 output "servers" {

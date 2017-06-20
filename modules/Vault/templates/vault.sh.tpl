@@ -30,4 +30,19 @@ disable_mlock = true
 EOF
 
 
-/usr/local/bin/vault server -config=/etc/vault/config.hcl
+sudo tee /etc/init/vault.conf > /dev/null <<"EOF"
+description "Vault"
+start on runlevel [2345]
+stop on runlevel [06]
+respawn
+post-stop exec sleep 5
+#
+normal exit 0 INT
+#
+kill signal INT
+exec /usr/local/bin/vault server \
+  -config=/etc/vault/config.hcl
+EOF
+
+sudo service vault stop || true
+sudo service vault start
