@@ -16,4 +16,8 @@ resource "aws_security_group" "consul" {
     protocol    = "-1"
     cidr_blocks = ["${var.sg_cidr}"]
   }
+
+  tags {
+    Name = "${var.namespace}"
+  }
 }

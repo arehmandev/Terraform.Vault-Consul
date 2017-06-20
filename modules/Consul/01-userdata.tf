@@ -34,7 +34,8 @@ data "template_file" "server" {
     consul_version = "${var.consul_version}"
 
     config = <<EOF
-     "bootstrap_expect": 3,
+     "bootstrap_expect": ${var.servers},
+     "client_addr": "0.0.0.0",
      "node_name": "${var.namespace}-server-${count.index}",
      "retry_join_ec2": {
        "tag_key": "${var.consul_join_tag_key}",
@@ -55,6 +56,7 @@ data "template_file" "client" {
 
     config = <<EOF
      "node_name": "${var.namespace}-client-${count.index}",
+     "client_addr": "0.0.0.0",
      "retry_join_ec2": {
        "tag_key": "${var.consul_join_tag_key}",
        "tag_value": "${var.consul_join_tag_value}"
