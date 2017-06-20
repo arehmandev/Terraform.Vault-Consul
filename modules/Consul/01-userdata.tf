@@ -36,8 +36,8 @@ data "template_file" "server" {
     config = <<EOF
      "bootstrap_expect": ${var.servers},
      "client_addr": "0.0.0.0",
-     "acl_master_token":"d9f1928e-1f84-407c-ab50-9579de563df5",
-     "acl_token":"d9f1928e-1f84-407c-ab50-9579de563df5",
+     "acl_master_token":"${var.vault_token}",
+     "acl_token":"${var.vault_token}",
      "acl_default_policy":"deny",
      "acl_down_policy":"deny",
      "node_name": "${var.namespace}-server-${count.index}",

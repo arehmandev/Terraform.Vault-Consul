@@ -56,3 +56,4 @@ variable "ownerid" {}
 variable "virtualization_type" {}
 variable "ami_name" {}
 variable "channel" {}
+variable "vault_token" {}

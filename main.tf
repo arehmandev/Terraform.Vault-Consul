@@ -45,6 +45,7 @@ module "Consul" {
   virtualization_type     = "${var.virtualization_type}"
   ami_name                = "${var.ami_name}"
   channel                 = "${var.channel}"
+  vault_token             = "${var.vault_token}"
 }
 
 module "ELB" {
@@ -55,4 +56,27 @@ module "ELB" {
   clients_instance_ids = ["${module.Consul.clients_ids}"]
   servers              = "${var.servers}"
   clients              = "${var.clients}"
+}
+
+module "Vault" {
+  source                    = "./modules/Vault"
+  consul_instance_profile   = "${module.IAM.iam_instance_profile}"
+  consul_securitygroup_id   = "${module.SecurityGroups.consul_securitygroup_id}"
+  consul_subnets            = "${module.VPC.consul_subnets}"
+  consul_version            = "${var.consul_version}"
+  consul_join_tag_key       = "${var.consul_join_tag_key}"
+  consul_join_tag_value     = "${var.consul_join_tag_value}"
+  cidr_blocks               = "${var.cidr_blocks}"
+  vpc_cidr_block            = "${var.vpc_cidr_block}"
+  namespace                 = "${var.namespace}"
+  key_name                  = "${aws_key_pair.consul.id}"
+  clients                   = "${var.clients}"
+  servers                   = "${var.servers}"
+  ownerid                   = "${var.ownerid}"
+  virtualization_type       = "${var.virtualization_type}"
+  ami_name                  = "${var.ami_name}"
+  channel                   = "${var.channel}"
+  vault_token               = "${var.vault_token}"
+  vault_version             = "${var.vault_version}"
+  consul_server_elb_address = "${module.ELB.servers_elb_dns_name}"
 }

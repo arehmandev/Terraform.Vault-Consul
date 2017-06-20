@@ -31,3 +31,7 @@ virtualization_type = "hvm"
 ami_name = "ubuntu/images/hvm/ubuntu-trusty-14.04"
 
 channel = "amd64-server"
+
+vault_version = "0.7.3"
+
+vault_token = "d9f1928e-1f84-407c-ab50-9579de563df5"
