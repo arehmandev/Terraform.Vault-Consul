@@ -20,6 +20,9 @@ vault auth, and enter the root token
 You'll see that any secret written to secret/* will be encrypted stored in the "vault" key-value folder in Consul UI.
 ```
 
+## TODO:
+Implement the TLS cert generation module and copy the certs over via S3 KMS encrypted artifacts
+
 # Consul Auto-Join Example
 This repository demonstrates using Consul auto-join to create and update a Consul cluster on AWS.
 

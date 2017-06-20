@@ -17,8 +17,8 @@ echo "Creating vault config"
 mkdir /etc/vault
 sudo tee /etc/vault/config.hcl > /dev/null <<EOF
 backend "consul" {
-address = "${consul_server_elb_address}"
-advertise_addr = "$PUBLIC_IP:8200"
+address = "${consul_server_elb_address}:8500"
+advertise_addr = "http://$PUBLIC_IP:8200"
 token= "${vault_token}"
 path = "vault"
 }
